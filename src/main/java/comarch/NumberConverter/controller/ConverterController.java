@@ -1,8 +1,11 @@
 package comarch.NumberConverter.controller;
 
-import comarch.NumberConverter.repository.ConverterRepo;
+import comarch.NumberConverter.repository.ConvertStrategy;
+import comarch.NumberConverter.service.ConvertHex;
+import comarch.NumberConverter.service.ConvertRoma;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -13,14 +16,14 @@ import org.springframework.web.servlet.ModelAndView;
 @RequiredArgsConstructor
 public class ConverterController {
 
-    private ConverterRepo converterRepo;
+    private ConvertStrategy convertStrategy;
 
     @Autowired
-    public ConverterController(ConverterRepo converterRepo) {
-        this.converterRepo = converterRepo;
+    public ConverterController(@Qualifier("convertHex") ConvertStrategy convertStrategy) {
+        this.convertStrategy = convertStrategy;
     }
 
-    @RequestMapping("/home")
+    @RequestMapping("/")
     public ModelAndView home()
     {
         ModelAndView modelAndView = new ModelAndView();
@@ -28,14 +31,16 @@ public class ConverterController {
         return modelAndView;
     }
 
-    @GetMapping("/hello")
-    public String helloWorld(){
-        return "Hello world";
-    }
 
     @GetMapping("/convert")
     public String convertNumber(@RequestParam (value = "number") Long number,
                                    @RequestParam (value = "convertTo") String convertTo) {
-        return converterRepo.convertNumber(number,convertTo);
+        if (convertTo.equals("Roma")){
+            ConvertStrategy convertStrategy = new ConvertRoma();
+            convertStrategy.convertNumber(number, convertTo);
+            return convertStrategy.convertNumber(number,convertTo);
+        }
+        convertStrategy.convertNumber(number, convertTo);
+        return convertStrategy.convertNumber(number,convertTo);
     }
 }

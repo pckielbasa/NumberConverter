@@ -1,7 +1,5 @@
 package comarch.NumberConverter.repository;
 
-import comarch.NumberConverter.model.Converter;
-
-public interface ConverterRepo {
+public interface ConvertStrategy {
     String convertNumber(Long number, String convertTo);
 }

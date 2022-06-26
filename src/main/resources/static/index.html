@@ -19,7 +19,8 @@
                 <button name="convertButton" type="submit" value="Roma" onclick="httpGet('Roma')">Roma</button>
 
             <p>Przekonwertowana liczba to:</p>
-            <p id="responseConvert" > </p>
+
+            <p id="responseConvert" style="font-size: xx-large; "> </p>
     </div>
 
 
@@ -27,8 +28,8 @@
     <script>
         function httpGet(convertTo)
         {
-            var xmlHttp = new XMLHttpRequest();
-            var number = document.getElementById("number").value.toString();
+            const xmlHttp = new XMLHttpRequest();
+            const number = document.getElementById("number").value.toString();
             document.getElementById("responseConvert").innerHTML = "Error";
             xmlHttp.open( "GET", "http://localhost:8080/convert?number="+number+"&convertTo="+convertTo, false );
             xmlHttp.send( null );
