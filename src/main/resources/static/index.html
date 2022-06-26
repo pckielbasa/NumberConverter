@@ -15,8 +15,8 @@
                     </label>
 
             <p>Wybierz na jaką liczbę chcesz konwertować:</p>
-                <button name="convertButton" type="submit" value="Hex" onclick="httpGet('Hex')">Hexadecimal</button>
-                <button name="convertButton" type="submit" value="Roma" onclick="httpGet('Roma')">Roma</button>
+                <button name="convertButton" type="submit" value="Hex" onclick="httpPost('Hex')">Hexadecimal</button>
+                <button name="convertButton" type="submit" value="Roma" onclick="httpPost('Roma')">Roma</button>
 
             <p>Przekonwertowana liczba to:</p>
 
@@ -26,11 +26,11 @@
 
 
     <script>
-        function httpGet(convertTo)
+        function httpPost(convertTo)
         {
             const xmlHttp = new XMLHttpRequest();
             const number = document.getElementById("number").value.toString();
-            xmlHttp.open( "GET", "http://localhost:8080/convert?number="+number+"&convertTo="+convertTo, false );
+            xmlHttp.open( "POST", "http://localhost:8080/convert?number="+number+"&convertTo="+convertTo, false );
             xmlHttp.send( null );
             if (number===''){
                 document.getElementById("responseConvert").innerHTML =  "Podaj jakąś liczbę!";
