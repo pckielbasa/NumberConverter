@@ -30,7 +30,6 @@
         {
             const xmlHttp = new XMLHttpRequest();
             const number = document.getElementById("number").value.toString();
-            document.getElementById("responseConvert").innerHTML = "Error";
             xmlHttp.open( "GET", "http://localhost:8080/convert?number="+number+"&convertTo="+convertTo, false );
             xmlHttp.send( null );
             if (number===''){

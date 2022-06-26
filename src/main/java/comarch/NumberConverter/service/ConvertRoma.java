@@ -1,6 +1,6 @@
 package comarch.NumberConverter.service;
 
-import comarch.NumberConverter.repository.ConvertStrategy;
+import comarch.NumberConverter.interfaces.ConvertStrategy;
 import org.springframework.stereotype.Service;
 
 @Service
