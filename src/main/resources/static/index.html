@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Converter</title>
+</head>
+<body>
+
+    <div style="text-align: center">
+        <h1>Number Converter by Paweł Kiełbasa</h1>
+            <p>Podaj liczbę do konwertowania:</p>
+
+                    <label>
+                        <input id="number" type="number"  maxlength="26" onkeypress="return event.keyCode !== 13;" />
+                    </label>
+
+            <p>Wybierz na jaką liczbę chcesz konwertować:</p>
+                <button name="convertButton" type="submit" value="Hex" onclick="httpGet('Hex')">Hexadecimal</button>
+                <button name="convertButton" type="submit" value="Roma" onclick="httpGet('Roma')">Roma</button>
+
+            <p>Przekonwertowana liczba to:</p>
+            <p id="responseConvert" > </p>
+    </div>
+
+
+
+    <script>
+        function httpGet(convertTo)
+        {
+            var xmlHttp = new XMLHttpRequest();
+            var number = document.getElementById("number").value.toString();
+            document.getElementById("responseConvert").innerHTML = "Error";
+            xmlHttp.open( "GET", "http://localhost:8080/convert?number="+number+"&convertTo="+convertTo, false );
+            xmlHttp.send( null );
+            if (number===''){
+                document.getElementById("responseConvert").innerHTML =  "Podaj jakąś liczbę!";
+            }else {
+                document.getElementById("responseConvert").innerHTML =  xmlHttp.responseText;
+            }
+        }
+    </script>
+</body>
+</html>
